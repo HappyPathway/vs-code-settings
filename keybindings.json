@@ -1,1 +1,178 @@
-../../Code - Insiders/User/keybindings.json
+// Place your key bindings in this file to override the defaults
+[
+    {
+        "key": "cmd+w cmd+f",
+        "command": "workbench.action.addRootFolder"
+    },
+    {
+        "key": "cmd+w cmd+s",
+        "command": "workbench.action.saveWorkspaceAs"
+    },
+    {
+        "key": "cmd+w cmd+w",
+        "command": "workbench.action.closeActiveEditor"
+    },
+    {
+        "key": "cmd+w",
+        "command": "-workbench.action.closeActiveEditor"
+    },
+    {
+        "key": "cmd+w cmd+w",
+        "command": "workbench.action.terminal.killEditor",
+        "when": "terminalEditorFocus && terminalFocus && terminalHasBeenCreated || terminalEditorFocus && terminalFocus && terminalProcessSupported"
+    },
+    {
+        "key": "cmd+w",
+        "command": "-workbench.action.terminal.killEditor",
+        "when": "terminalEditorFocus && terminalFocus && terminalHasBeenCreated || terminalEditorFocus && terminalFocus && terminalProcessSupported"
+    },
+    {
+        "key": "cmd+w cmd+w",
+        "command": "workbench.action.closeWindow",
+        "when": "!editorIsOpen && !multipleEditorGroups"
+    },
+    {
+        "key": "cmd+w",
+        "command": "-workbench.action.closeWindow",
+        "when": "!editorIsOpen && !multipleEditorGroups"
+    },
+    {
+        "key": "cmd+w cmd+w",
+        "command": "workbench.action.closeGroup",
+        "when": "activeEditorGroupEmpty && multipleEditorGroups"
+    },
+    {
+        "key": "cmd+w",
+        "command": "-workbench.action.closeGroup",
+        "when": "activeEditorGroupEmpty && multipleEditorGroups"
+    },
+    {
+        "key": "cmd+w cmd+c",
+        "command": "workbench.action.closeFolder",
+        "when": "emptyWorkspaceSupport && workbenchState != 'empty'"
+    },
+    {
+        "key": "cmd+k f",
+        "command": "-workbench.action.closeFolder",
+        "when": "emptyWorkspaceSupport && workbenchState != 'empty'"
+    },
+    {
+        "key": "cmd+w cmd+c",
+        "command": "workbench.files.action.collapseExplorerFolders"
+    },
+    {
+        "key": "cmd+w cmd+o",
+        "command": "gitlens.views.workspaces.openLocalNewWindow"
+    },
+    {
+        "key": "cmd+w cmd+,",
+        "command": "workbench.action.openWorkspaceSettings"
+    },
+    {
+        "key": "cmd+b cmd+l",
+        "command": "workbench.action.toggleSidebarVisibility"
+    },
+    {
+        "key": "cmd+b",
+        "command": "-workbench.action.toggleSidebarVisibility"
+    },
+    {
+        "key": "cmd+b cmd+r",
+        "command": "workbench.action.toggleAuxiliaryBar"
+    },
+    {
+        "key": "alt+cmd+b",
+        "command": "-workbench.action.toggleAuxiliaryBar"
+    },
+    {
+        "key": "cmd+w cmd+o",
+        "command": "workbench.action.openWorkspace"
+    },
+    {
+        "key": "cmd+j cmd+m",
+        "command": "workbench.action.toggleMaximizedPanel"
+    },
+    {
+        "key": "cmd+j cmd+j",
+        "command": "workbench.action.togglePanel"
+    },
+    {
+        "key": "cmd+j",
+        "command": "-workbench.action.togglePanel"
+    },
+    {
+        "key": "shift+cmd+s",
+        "command": "workbench.action.files.saveFiles"
+    },
+    {
+        "key": "cmd+s",
+        "command": "workbench.action.files.save"
+    },
+    {
+        "key": "cmd+s",
+        "command": "-workbench.action.files.save"
+    },
+    {
+        "key": "cmd+w cmd+r",
+        "command": "workbench.action.removeRootFolder"
+    },
+    {
+        "key": "cmd+l cmd+l",
+        "command": "github.copilot.openModelPicker"
+    },
+    {
+        "key": "cmd+g cmd+b",
+        "command": "gitlens.toggleFileBlame",
+        "when": "editorTextFocus && config.gitlens.keymap == 'chorded' && resource in 'gitlens:tabs:blameable'"
+    },
+    {
+        "key": "alt+cmd+g b",
+        "command": "-gitlens.toggleFileBlame",
+        "when": "editorTextFocus && config.gitlens.keymap == 'chorded' && resource in 'gitlens:tabs:blameable'"
+    },
+    {
+        "key": "cmd+e cmd+h",
+        "command": "workbench.action.toggleEditorVisibility",
+        "when": "!isAuxiliaryWindowFocusedContext && panelAlignment == 'center' || !isAuxiliaryWindowFocusedContext && panelPosition != 'bottom'"
+    },
+    {
+        "key": "cmd+e cmd+r",
+        "command": "editor.action.toggleScreenReaderAccessibilityMode",
+        "when": "accessibilityHelpIsShown"
+    },
+    {
+        "key": "cmd+e",
+        "command": "-editor.action.toggleScreenReaderAccessibilityMode",
+        "when": "accessibilityHelpIsShown"
+    },
+    {
+        "key": "cmd+e cmd+e",
+        "command": "workbench.view.explorer",
+        "when": "viewContainer.workbench.view.explorer.enabled"
+    },
+    {
+        "key": "shift+cmd+e",
+        "command": "-workbench.view.explorer",
+        "when": "viewContainer.workbench.view.explorer.enabled"
+    },
+    {
+        "key": "cmd+i",
+        "command": "-aws.amazonq.inline.invokeChat",
+        "when": "aws.codewhisperer.connected && editorTextFocus"
+    },
+    {
+        "key": "cmd+w cmd+c",
+        "command": "workbench.actions.treeView.workbench.panel.markers.view.collapseAll",
+        "when": "problemsViewMode == 'tree' && view == 'workbench.panel.markers.view'"
+    },
+    {
+        "key": "cmd+e cmd+p",
+        "command": "workbench.actions.view.problems",
+        "when": "workbench.panel.markers.view.active"
+    },
+    {
+        "key": "shift+cmd+m",
+        "command": "-workbench.actions.view.problems",
+        "when": "workbench.panel.markers.view.active"
+    }
+]

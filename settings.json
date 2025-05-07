@@ -1,1 +1,223 @@
-../../Code - Insiders/User/settings.json
+{
+	"autoDocstring.docstringFormat": "sphinx",
+	"github.copilot.chat.scopeSelection": true,
+	"github.copilot.chat.editor.temporalContext.enabled": true,
+	"github.copilot.chat.edits.temporalContext.enabled": true,
+	"git.enableSmartCommit": true,
+	"git.autofetch": true,
+	"git.confirmSync": false,
+	"workbench.startupEditor": "none",
+	"git.openRepositoryInParentFolders": "never",
+	"editor.acceptSuggestionOnEnter": "off",
+	"editor.quickSuggestions": {
+		"other": "off"
+	},
+	"files.associations": {
+		"*.mdx": "markdown"
+	},
+	"terraform.codelens.referenceCount": true,
+	"terraform.languageServer.terraform.path": "/usr/local/bin/terraform",
+	"workbench.colorTheme": "Monokai Dimmed",
+	"explorer.confirmDelete": false,
+	"security.workspace.trust.untrustedFiles": "open",
+	"go.toolsManagement.autoUpdate": true,
+	"terminal.integrated.tabs.location": "left",
+	"makefile.configureOnOpen": false,
+	"github.copilot.chat.codesearch.enabled": true,
+	"github.copilot.advanced": {
+		"enabled": true,
+		"useAdvancedSuggestions": true
+	},
+	"github.copilot.chat.reviewSelection.enabled": true,
+	"github.copilot.nextEditSuggestions.enabled": false,
+	"terraform.languageServer.terraform.logFilePath": ".tflog",
+	"chat.promptFiles": true,
+	"github.copilot.chat.codeGeneration.useInstructionFiles": true,
+	"github.copilot.chat.codeGeneration.instructions": [
+		{
+			"file": ".github/copilot-instructions.md"
+		}
+	],
+	"accessibility.voice.autoSynthesize": "on",
+	"accessibility.voice.ignoreCodeBlocks": true,
+	"chat.tools.autoApprove": true,
+	"python.analysis.typeCheckingMode": "strict",
+	"python.createEnvironment.trigger": "off",
+	"explorer.confirmDragAndDrop": false,
+	"workbench.editorAssociations": {
+		"git-rebase-todo": "default"
+	},
+	"files.autoSave": "afterDelay",
+	"mcp": {
+		"inputs": [
+			{
+				"type": "promptString",
+				"id": "github_token",
+				"description": "GitHub Personal Access Token",
+				"password": true
+			},
+			{
+				"type": "promptString",
+				"id": "slack_bot_token",
+				"description": "Slack Bot Token",
+				"password": true
+			},
+			{
+				"type": "promptString",
+				"id": "slack_team_id",
+				"description": "Slack Team ID"
+			},
+			{
+				"type": "promptString",
+				"id": "slack_channel_ids",
+				"description": "Comma-separated Slack Channel IDs"
+			},
+			{
+				"type": "promptString",
+				"id": "gcs-credentials",
+				"description": "Google Cloud Service Account JSON (paste the entire JSON content)",
+				"password": true
+			},
+			{
+				"type": "promptString",
+				"id": "gmail-oauth-credentials",
+				"description": "Gmail OAuth2 credentials.json content (paste the entire JSON)",
+				"password": true
+			},
+			{
+				"type": "promptString",
+				"id": "gemini-key",
+				"description": "Gemini API Key",
+				"password": true
+			},
+			{
+				"type": "promptString",
+				"id": "github_org",
+				"description": "GitHub Organization"
+			}
+		],
+		"servers": {
+			"Context7": {
+				"type": "stdio",
+				"command": "npx",
+				"args": [
+					"-y",
+					"@upstash/context7-mcp@latest"
+				]
+			},
+			"github": {
+				"command": "docker",
+				"args": [
+					"run",
+					"-i",
+					"--rm",
+					"-e",
+					"GITHUB_PERSONAL_ACCESS_TOKEN",
+					"-e",
+					"GITHUB_ORG",
+					"ghcr.io/github/github-mcp-server"
+				],
+				"env": {
+					"GITHUB_PERSONAL_ACCESS_TOKEN": "${input:github_token}",
+					"GITHUB_ORG": "${input:github_org}"
+				}
+			},
+			"slack": {
+				"command": "docker",
+				"args": [
+					"run",
+					"-i",
+					"--rm",
+					"-e",
+					"SLACK_BOT_TOKEN",
+					"-e",
+					"SLACK_TEAM_ID",
+					"-e",
+					"SLACK_CHANNEL_IDS",
+					"mcp/slack"
+				],
+				"env": {
+					"SLACK_BOT_TOKEN": "${input:slack_bot_token}",
+					"SLACK_TEAM_ID": "${input:slack_team_id}",
+					"SLACK_CHANNEL_IDS": "${input:slack_channel_ids}"
+				}
+			},
+			"imap-mcp": {
+				"type": "stdio",
+				"command": "${userHome}/git/imap-mcp-server/venv/bin/python",
+				"args": [
+					"${userHome}/git/imap-mcp-server/src/server.py"
+				],
+				"env": {
+					"PYTHONPATH": "${userHome}/git/imap-mcp-server/src",
+					"GEMINI_API_KEY": "${input:gemini-key}",
+					"GOOGLE_CREDENTIALS_PATH": "${userHome}/.imap-mcp/credentials.json",
+					"GOOGLE_TOKEN_PATH": "${userHome}/.imap-mcp/token.pickle",
+					"GCS_CREDENTIALS": "${input:gcs-credentials}",
+					"GCS_BUCKET": "imap-mcp-server",
+					"IMAP_HOST": "imap.gmail.com",
+					"LOG_LEVEL": "DEBUG",
+					"GMAIL_API_DEBUG": "true",
+					"OAUTH_CREDENTIALS_DIR": "${userHome}/.imap-mcp",
+					"MAX_EMAILS_TO_ANALYZE": "100"
+				}
+			},
+			"sqlite": {
+				"command": "docker",
+				"args": [
+					"run",
+					"--rm",
+					"-i",
+					"-v",
+					"${userHome}/git/jobsearchx:/mcp",
+					"mcp/sqlite",
+					"--db-path",
+					"/mcp/career_database.db"
+				]
+			},
+			"gcs-mcp": {
+				"type": "stdio",
+				"command": "${userHome}/git/gcs-mcp-server/venv/bin/python",
+				"args": [
+					"${userHome}/git/gcs-mcp-server/src/server.py"
+				],
+				"env": {
+					"PYTHONPATH": "${userHome}/git/gcs-mcp-server/src",
+					"GCS_CREDENTIALS": "${input:gcs-credentials}",
+					"GCS_BUCKET": "imap-mcp-server",
+					"LOG_LEVEL": "INFO"
+				}
+			},
+			"web-mcp": {
+				"type": "stdio",
+				"command": "${userHome}/git/web-mcp-server/venv/bin/python",
+				"args": [
+					"${userHome}/git/web-mcp-server/src/server.py"
+				],
+				"env": {
+					"GEMINI_API_KEY": "${input:gemini-key}",
+					"GCS_BUCKET": "web-mcp-server",
+					"PYTHONPATH": "${userHome}/git/web-mcp-server/src",
+					"CACHE_DURATION": "86400",
+					"MAX_CACHE_SIZE": "1000",
+					"LOG_LEVEL": "INFO",
+					"CHROME_ARGS": "--no-sandbox --disable-dev-shm-usage",
+					"REQUEST_DELAY": "1.0",
+					"MAX_RETRIES": "3"
+				}
+			},
+			"playwright": {
+				"command": "npx",
+				"args": [
+					"@playwright/mcp@latest"
+				]
+			}
+		}
+	},
+	"geminicodeassist.project": "happypathway-1522441039906",
+	"python.defaultInterpreterPath": "/Users/darnold/pyenv/3.12.4/bin/python",
+	"files.saveConflictResolution": "overwriteFileOnDisk",
+	"autoDocstring.includeExtendedSummary": true,
+	"autoDocstring.includeName": true,
+	"editor.accessibilitySupport": "off"
+}
