@@ -12,6 +12,14 @@
 	"editor.quickSuggestions": {
 		"other": "off"
 	},
+	"emeraldwalk.runonsave": {
+          "commands": [
+            {
+                "match": "\\.tf$",
+                "cmd": "terraform fmt -recursive && terraform validate"
+            }
+          ]
+        }
 	"files.associations": {
 		"*.mdx": "markdown"
 	},
